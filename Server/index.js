@@ -5,6 +5,7 @@ import session from 'express-session';
 import userRouter from './src/routes/user.js'
 import connectMongoDBSession from "connect-mongodb-session";
 const MONGO_URL = keys.MONGO_URL;
+import cors from 'cors';
 const app = express();
 const Port = keys.PORT;
 const MongoDBStore = connectMongoDBSession(session);
@@ -13,6 +14,13 @@ mongoose.set("strictQuery",false);
 mongoose.connect(MONGO_URL).then(() => {
   console.log("mongodb connected"); 
 })
+
+// cors connection 
+
+app.use(cors({
+  origin : "http://localhost:5173",
+  credentials : true
+}));
 // middlewares
 app.use(express.json())
 

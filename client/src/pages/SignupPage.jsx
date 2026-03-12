@@ -33,7 +33,7 @@ function Signup() {
       }
     }
     return (
-      <div className="min-h-screen flex item-center justify-center bg-gray-100 p-4">
+      <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
       <div className="bg-white rounded-2xl shadow-xl flex w-full max-w-4xl overflow-hidden">
         <div className="w-full md:w-1/2 p-8 sm:p-12 flex flex-col justify-center">
         <h2 className="text-3xl font-bold mb-6 text-center">Signup</h2>
@@ -70,13 +70,15 @@ function Signup() {
 </Button>
         </form>
         </div>
-        <div className="hidden md:block w-1/2 bg-gray-200">
-        <img 
-        src={FoodPanda}
-        alt="food panda"
-        className="w-full h-full object-cover"
-        />
-      </div>
+        <div className="hidden md:block md:w-1/2 h-[500px]">
+        
+                  <img
+                    src={FoodPanda}
+                    alt="food panda"
+                    className="w-full h-full object-cover"
+                  />
+        
+                </div>
       </div>
       </div>
     )

@@ -56,7 +56,12 @@ const userSchema = new mongoose.Schema({
   bookmarkslist : {
     type : Map,
     of : Boolean,
-  } 
+  } ,
+  role: {
+    type: String,
+    enum: ['customer', 'restaurant'],
+    default : 'customer',
+  }
 }, {timestamps : true} ,);
 
 const User = mongoose.model('user', userSchema);

@@ -4,7 +4,7 @@ import { generateToken } from "../services/auth.js";
 import bcrypt from "bcrypt";
 
 async function registerUser(req, res) {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
   if (!name || !email || !password)
     return res.status(400).json({ message: "all fields are required" });
 
@@ -25,11 +25,16 @@ async function registerUser(req, res) {
   const check = await User.findOne({ email });
   if (check) return res.status(400).json({ message: "email already exist" });
 
+  // ensure if role is valid or not , default customer if missing/wrong
+  const validRoles = ["customer", "restaurant"];
+  const assignedRoles = validRoles.includes(role) ? role :"customer";
+
   const hashed_password = await bcrypt.hash(password, 10);
   const newUser = await User.create({
     name,
     email,
     password: hashed_password,
+    role : assignedRoles,
     verify: true,
     likeslist: {},
     bookmarkslist: {},
@@ -44,6 +49,7 @@ async function registerUser(req, res) {
     id: newUser._id,
     name: newUser.name,
     picture: newUser.picture,
+    role : newUser.role,
     token: token,
     message: "user registered!!",
     likes: [],
@@ -64,12 +70,13 @@ async function loginUser(req, res) {
       });
   const check = await bcrypt.compare(password, user.password);
   if (!check)
-    return res.json(400).json({ message: "invalid credentials,try again." });
+    return res.status(400).json({ message: "invalid credentials,try again." });
   const token = generateToken({ id: user._id.toString() }, "15d");
   res.send({
     id: user._id,
     name: user.name,
     picture: user.picture,
+    role: user.role,
     token: token,
     bookmark: user.bookmarks,
     likes: user.likes,

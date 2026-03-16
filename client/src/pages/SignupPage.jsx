@@ -37,7 +37,7 @@ function Signup() {
 
         // Save user globally
       login(data.user, data.token);
-        alert("sinup successfull");
+        alert("signup successfull");
 
         if (form.role === "restaurant") {
         navigate("/dashboard");

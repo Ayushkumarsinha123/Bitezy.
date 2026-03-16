@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { loginUser } from "../services/authService";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import FoodCat2 from "../assets/FoodCat2.jfif";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+
 
 function Login() {
+  const {login } = useAuth(); // access global login function 
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
     password: ""
@@ -23,7 +28,16 @@ function Login() {
     try {
       const data = await loginUser(form);
       console.log(data);
+
+      // save user globally 
+      login(data, data.token);
       alert("Login successful");
+
+      if(data.role === "restaurant") {
+        navigate('/dashboard');
+      } else {
+        navigate("/feed")
+      }
     } catch (err) {
       console.log(err);
       alert("Login failed");

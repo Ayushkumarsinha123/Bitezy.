@@ -14,8 +14,12 @@ export const AuthProvider = ({children}) => {
     const storedToken = localStorage.getItem("token");
 
     if(storedUser && storedToken ) {
-      setUser(JSON.parse(storedUser));
-      setToken(storedToken);
+      try {setUser(JSON.parse(storedUser));
+      setToken(storedToken);}
+      catch {
+        console.error("Invalid user in localStorage");
+        localStorage.removeItem("user");
+      }
     }
   },[]);
 
@@ -34,7 +38,7 @@ export const AuthProvider = ({children}) => {
     setToken(null);
 
     localStorage.removeItem("user");
-    localStorage.rremoveItem("token");
+    localStorage.removeItem("token");
   };
 
   return (

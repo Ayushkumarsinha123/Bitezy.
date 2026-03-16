@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 function ProtectedRoutes({children, role}) {
-  const { user } = useAuth;
+  const { user } = useAuth();
 
   // if user is not logined in 
   if(!user) {
@@ -14,7 +14,7 @@ function ProtectedRoutes({children, role}) {
     return <Navigate to="/login" />
   }
   return children;
-  
+
 }
 
 export default ProtectedRoutes;

@@ -2,6 +2,7 @@ import Login from "./pages/LoginPage";
 import Signup from "./pages/SignupPage"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoute";
+import Feed from "./pages/Feeds";
 function App() {
   
 
@@ -14,15 +15,15 @@ function App() {
 
 
 
-      {/* Customer Routes
+     // Customer Routes
   <Route
     path="/feed"
     element={
-      <ProtectedRoute role="customer">
+      <ProtectedRoutes role="customer">
         <Feed />
-      </ProtectedRoute>
+      </ProtectedRoutes>
     }
-  /> */}
+  />
 
   {/* Restaurant Routes */}
   {/* <Route

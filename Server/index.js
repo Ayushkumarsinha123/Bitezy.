@@ -3,6 +3,7 @@ import keys from './src/config/key.js'
 import mongoose from 'mongoose';
 import session from 'express-session';
 import userRouter from './src/routes/user.js'
+import reelRoutes from './src/routes/ReelsRoutes.js'
 import connectMongoDBSession from "connect-mongodb-session";
 const MONGO_URL = keys.MONGO_URL;
 import cors from 'cors';
@@ -38,6 +39,7 @@ var store = new MongoDBStore(
 )
 //routes
 app.use('/api/users', userRouter);
+app.use("/api", reelRoutes);
 
 app.listen(Port,()=> {
 console.log(`server running on : ${Port}`);

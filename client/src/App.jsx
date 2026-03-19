@@ -3,6 +3,7 @@ import Signup from "./pages/SignupPage"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoute";
 import Feed from "./pages/Feeds";
+import Dashboard from "./pages/Dashboard";
 function App() {
   
 
@@ -15,7 +16,7 @@ function App() {
 
 
 
-     // Customer Routes
+     {/* // Customer Routes */}
   <Route
     path="/feed"
     element={
@@ -26,14 +27,14 @@ function App() {
   />
 
   {/* Restaurant Routes */}
-  {/* <Route
+  <Route
     path="/dashboard"
     element={
-      <ProtectedRoute role="restaurant">
+      <ProtectedRoutes role="restaurant">
         <Dashboard />
-      </ProtectedRoute>
+      </ProtectedRoutes>
     }
-  /> */}
+  />
 
 
     </Routes>

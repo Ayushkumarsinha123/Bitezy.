@@ -14,11 +14,12 @@ import { useAuth } from "../context/AuthContext";
 function Signup() {
 
   const navigate = useNavigate()
-  const { login} = useAuth
+  const { login} = useAuth();
     const [form, setForm ] = useState({
       name : "",
       email: "",
-      password: ""
+      password: "",
+      role:"customer"
     });
 
     const handleChange = (e) => {
@@ -46,8 +47,10 @@ function Signup() {
       }
       }
       catch(err){
-        console.log(err);
-        alert("signup failed")
+        const backendErrorMessage = err.response?.data?.message || err.message;
+        
+        console.error("Backend rejected it because:", backendErrorMessage);
+        alert("Signup failed: " + backendErrorMessage);
       }
     }
     return (

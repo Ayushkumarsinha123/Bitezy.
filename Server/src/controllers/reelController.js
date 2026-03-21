@@ -73,3 +73,46 @@ export const uploadReel = async (req, res) => {
     res.status(500).json({ message: "Failed to upload reel", error: error.message });
   }
 }
+// delete reel controller 
+export const deleteReel = async (req, res) => {
+  try {
+    const reel = await Reel.findById(req.params.id);
+    if(!reel) return res.status(404).json({ message: "reel not found"});
+
+    //security check
+    if(reel.restaurant.toString() != req.user.id) {
+      return res.status(200).json({message : "user not authorized to delete this reel"})
+    }
+    await reel.deleteOne();
+    res.status(200).json({message:"reel is deleted"});
+  } catch(error) {
+    console.error("delete error", error);
+    res.status(500).json({message:"failed to delete reel", error:error.message});
+  }
+};
+
+// edit/update reel controller
+export const updateReel = async (req, res) => {
+  try {
+    const reel = await Reel.findById(req.params.id);
+    if(!reel) return res.status(404).json({ message: "reel not found"});
+
+    //security check
+    if(reel.restaurant.toString() != req.user.id) {
+      return res.status(200).json({message : "user not authorized to delete this reel"})
+    }
+
+    const updatedReel = await Reel.findByIdAndUpdate(
+      req.params.id,
+      {
+        title: req.body.title || reel.title,
+        price: req.body.price || reel.price,
+      } , 
+      {new : true} // this return the updated document
+    );
+    res.status(200).json(updatedReel);
+  } catch(error) {
+    console.error("UPDATE REEL ERROR:", error);
+    res.status(500).json({ message: "Failed to update reel", error: error.message });
+  }
+};

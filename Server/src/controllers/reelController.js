@@ -22,6 +22,20 @@ export const getAllReels = async(req, res) => {
   }
 }
 
+// get own restro reels
+
+export const getRestaurantReels = async (req, res) => {
+  try {
+    // only fetch reel that belong to logged-in restro
+    const myReels = await Reel.find({restaurant:req.user.id})
+      .sort({createdAt : -1}) // recent reel first
+      res.status(200).json(myReels);
+  } catch(error) {
+    console.error("get my error", error);
+    res.status(500).json({message : "failed to fetch reels ", error: error.message})
+  }
+};
+
 // upload a reel for restro dashboard
 
 export const uploadReel = async (req, res) => {

@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button';
 import UploadReelForm from '../components/reels/UploadReelForm';
 import { useAuth } from '../context/AuthContext'; // 👈 Import your custom hook
+import MyReels from '../components/reels/MyReels';
 
 const Dashboard = () => {
   // 👈 Use the hook directly
@@ -24,6 +25,9 @@ const Dashboard = () => {
       <div className="max-w-xl mx-auto">
         <UploadReelForm />
       </div>
+      <section>
+        <MyReels /> 
+      </section>
       
     </div>
   );

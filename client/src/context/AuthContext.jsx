@@ -7,6 +7,8 @@ export const AuthProvider = ({children}) => {
     const [user, setUser] = useState(null);
     const [token , setToken ] = useState(null);
 
+    const [loading, setLoading ] = useState(true);
+
   // load user from localStorage when app starts
 
   useEffect(() => {
@@ -18,9 +20,11 @@ export const AuthProvider = ({children}) => {
       setToken(storedToken);}
       catch {
         console.error("Invalid user in localStorage");
-        localStorage.removeItem("user");
+        localStorage.removeItem("user")
+        localStorage.removeItem("token");
       }
     }
+    setLoading(false);
   },[]);
 
   // login function
@@ -42,7 +46,7 @@ export const AuthProvider = ({children}) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login , logout}}>
+    <AuthContext.Provider value={{ user, token, login , logout, loading}}>
       {children}
     </AuthContext.Provider>
   );

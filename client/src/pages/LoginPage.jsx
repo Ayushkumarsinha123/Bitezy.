@@ -51,7 +51,7 @@ function Login() {
         <div className="w-full md:w-1/2 p-6 sm:p-10 flex flex-col justify-center overflow-y-auto">
           <div className="mb-6 text-center md:text-left">
             <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Welcome Back</h1>
-            <p className="text-gray-500">Log in to FoodTalks to pick up where you left off.</p>
+            <p className="text-gray-500">Log in to Bitezy. to pick up where you left off.</p>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
@@ -100,7 +100,7 @@ function Login() {
           </p>
         </div>
 
-        {/* Right Side - Image stays perfectly locked in height */}
+        
         <div className="hidden md:block md:w-1/2 relative bg-black">
           <img
             src={FoodCat2}

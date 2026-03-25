@@ -55,13 +55,13 @@ function Signup() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      {/* 👇 FIX 1: Max height constraint applied */}
+     
       <div className="bg-white rounded-3xl shadow-2xl flex w-full max-w-5xl overflow-hidden border border-gray-100 md:max-h-[85vh]">
         
-        {/* 👇 FIX 2: Scrollable interior for small laptop screens */}
+        
         <div className="w-full md:w-1/2 p-6 sm:p-10 flex flex-col justify-center overflow-y-auto">
           <div className="mb-6 text-center md:text-left">
-            <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Food Talks.</h1>
+            <h1 className="text-3xl font-extrabold text-gray-900 mb-2">Bitezy.</h1>
             <p className="text-gray-500">Create an account to start ordering.</p>
           </div>
 
@@ -129,7 +129,7 @@ function Signup() {
           </p>
         </div>
 
-        {/* Right Side - Image */}
+       
         <div className="hidden md:block md:w-1/2 relative bg-black">
           <img
             src={FoodPanda}

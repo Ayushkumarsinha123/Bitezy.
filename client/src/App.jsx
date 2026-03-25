@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProtectedRoutes from "./components/ProtectedRoute";
 import Feed from "./pages/Feeds";
 import Dashboard from "./pages/Dashboard";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
 import Search from "./components/reels/Search";
 import Layout from "./components/Layout";
 import { CartProvider } from "./context/CartContext";
@@ -26,6 +27,8 @@ function App() {
               }
             />
             <Route path="/search" element={<Search />} />
+
+            <Route path="/success" element={<ProtectedRoutes role="customer"><CheckoutSuccess /></ProtectedRoutes>} />
             {/* Restaurant Routes */}
             <Route
               path="/dashboard"

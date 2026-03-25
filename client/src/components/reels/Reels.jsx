@@ -73,11 +73,11 @@ const Reel = ({ _id,videoUrl, dishName, restaurantName, price }) => {
         muted 
       />
 
-      {/* Dish & Restaurant Info */}
+     
       <div className="absolute bottom-0 left-0 w-full p-4 bg-linear-to-t from-black/80 to-transparent text-white">
         <h2 className="text-2xl font-bold mb-1">{dishName}</h2>
         <p className="text-sm font-light mb-3">📍 {restaurantName}</p>
-        {/* The Magic Button */}
+       
         <button 
           onClick={handleOrderClick}
           className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-full w-full flex items-center justify-center gap-2 transition-colors active:scale-95"
@@ -87,7 +87,7 @@ const Reel = ({ _id,videoUrl, dishName, restaurantName, price }) => {
         </button>
       </div>
 
-      {/* Right Overlay: Social Actions */}
+     
       <div className="absolute right-4 bottom-32 flex flex-col gap-6 items-center text-white">
         <div className="flex flex-col items-center">
           <div className="bg-black/40 p-3 rounded-full hover:bg-black/60 cursor-pointer">

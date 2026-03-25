@@ -24,7 +24,7 @@ const Navbar = () => {
             
             <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={() => navigate('/')}>
               <h1 className="text-2xl font-extrabold tracking-tight text-red-500">
-                CraveCart<span className="text-gray-800">.</span>
+                Bitezy.<span className="text-gray-800">.</span>
               </h1>
             </div>
 

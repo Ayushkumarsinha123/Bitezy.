@@ -62,8 +62,11 @@ export const createOrder = async (req, res) => {
 export const fetchRestaurantOrders = async (req, res) => {
   try {
     // Find all orders where the restaurantName matches the logged-in restaurant owner
+    console.log("Dashboard is asking for orders belonging to:", req.user.name);
+    
     const orders = await Order.find({ restaurantName: req.user.name }).sort({ createdAt: -1 });
-    res.json(orders);
+    
+    console.log("Found this many orders:", orders.length);
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch restaurant orders" });
   }

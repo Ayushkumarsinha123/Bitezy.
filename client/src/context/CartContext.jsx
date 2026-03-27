@@ -1,63 +1,81 @@
-import React, { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
+import { useAuth } from './AuthContext';
+import { fetchCart, syncCart, createOrder } from '../services/shopService';
 
-// 1. Create the Context
 const CartContext = createContext();
 
-// 2. Create a custom hook so other files can easily use the cart
-export const useCart = () => {
-  return useContext(CartContext);
-};
+export const useCart = () => useContext(CartContext);
 
-// 3. Create the Provider component
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const { user, token } = useAuth();
 
-  // Add an item to the cart
-  const addToCart = (dish) => {
-    setCart((prevCart) => {
-      // Check if the dish is already in the cart
-      const existingItem = prevCart.find((item) => item._id === dish._id);
-      
-      if (existingItem) {
-        // If it is, just increase the quantity by 1
-        return prevCart.map((item) =>
-          item._id === dish._id ? { ...item, quantity: item.quantity + 1 } : item
-        );
+  // 1. Load the database cart when a customer logs in
+  useEffect(() => {
+    const loadDbCart = async () => {
+      if (user && token && user.role === 'customer') {
+        try {
+          const savedCart = await fetchCart(token);
+          setCart(savedCart);
+        } catch (err) {
+          console.error("Failed to load cart from DB", err);
+        }
+      } else {
+        setCart([]); // Clear cart if logged out or if it's a restaurant
       }
+    };
+    loadDbCart();
+  }, [user, token]);
+
+  // 2. Add Item (Updates React UI + MongoDB instantly)
+  const addToCart = async (dish) => {
+    let newCart;
+    const existingItem = cart.find((item) => item._id === dish._id);
+    
+    if (existingItem) {
+      newCart = cart.map((item) =>
+        item._id === dish._id ? { ...item, quantity: item.quantity + 1 } : item
+      );
+    } else {
+      newCart = [...cart, { ...dish, quantity: 1 }];
+    }
+    
+    setCart(newCart);
+    if (token) await syncCart(newCart, token);
+  };
+
+  // 3. Remove Item
+  const removeFromCart = async (dishId) => {
+    const newCart = cart.filter((item) => item._id !== dishId);
+    setCart(newCart);
+    if (token) await syncCart(newCart, token);
+  };
+
+  const getCartTotal = () => cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const getItemCount = () => cart.reduce((count, item) => count + item.quantity, 0);
+
+  // 4. Checkout Logic
+  const handleCheckout = async () => {
+    if (!token || cart.length === 0) return false;
+    
+    try {
+      const orderData = {
+        items: cart,
+        totalAmount: getCartTotal()
+      };
       
-      // If it's new, add it to the array with a quantity of 1
-      return [...prevCart, { ...dish, quantity: 1 }];
-    });
-  };
-
-  // Remove an item entirely
-  const removeFromCart = (dishId) => {
-    setCart((prevCart) => prevCart.filter((item) => item._id !== dishId));
-  };
-
-  // Empty the cart (useful for after checkout!)
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  // Calculate the total price of everything in the cart
-  const getCartTotal = () => {
-    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-  };
-
-  // Calculate the total number of items (for the little red badge on a cart icon)
-  const getItemCount = () => {
-    return cart.reduce((count, item) => count + item.quantity, 0);
+      await createOrder(orderData, token); // Saves order to DB and clears DB cart
+      setCart([]); // Clears the React UI cart
+      return true; // Returns true so we know to navigate to the success page!
+    } catch (err) {
+      console.error("Checkout failed", err);
+      return false;
+    }
   };
 
   return (
     <CartContext.Provider value={{ 
-      cart, 
-      addToCart, 
-      removeFromCart, 
-      clearCart, 
-      getCartTotal,
-      getItemCount 
+      cart, addToCart, removeFromCart, getCartTotal, getItemCount, handleCheckout 
     }}>
       {children}
     </CartContext.Provider>

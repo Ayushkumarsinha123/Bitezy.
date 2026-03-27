@@ -5,6 +5,7 @@ import ProtectedRoutes from "./components/ProtectedRoute";
 import Feed from "./pages/Feeds";
 import Dashboard from "./pages/Dashboard";
 import CheckoutSuccess from "./pages/CheckoutSuccess";
+import LandingPage from "./pages/LandingPage";
 import Search from "./components/reels/Search";
 import Layout from "./components/Layout";
 import { CartProvider } from "./context/CartContext";
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<Signup />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<LandingPage />} />
 
           <Route element={<Layout />}>
             {/* // Customer Routes */}
@@ -46,3 +48,5 @@ function App() {
 }
 
 export default App;
+
+

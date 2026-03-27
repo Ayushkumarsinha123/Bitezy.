@@ -1,18 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useCart } from '../context/CartContext';
+// We don't need useCart here anymore because handleCheckout already emptied it!
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Button from '@mui/material/Button';
 
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
-  const { clearCart } = useCart();
-
-  // Empty the cart as soon as this page loads!
-  useEffect(() => {
-    clearCart();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   // Generate a random fake order number for realism
   const orderNumber = Math.floor(100000 + Math.random() * 900000);

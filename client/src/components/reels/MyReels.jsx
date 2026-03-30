@@ -12,7 +12,7 @@ const MyReels = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   
-  // State for Editing
+  
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({ title: '', price: '' });
 
@@ -32,7 +32,7 @@ const MyReels = () => {
     loadMyVideos();
   }, [token]);
 
-  // Handle Delete
+  
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this menu item?")) return;
     try {
@@ -43,13 +43,13 @@ const MyReels = () => {
     }
   };
 
-  // Handle Edit Click (Turns on Edit Mode)
+  
   const handleEditClick = (reel) => {
     setEditingId(reel._id);
     setEditForm({ title: reel.title, price: reel.price });
   };
 
-  // Handle Save (Submits the update)
+ 
   const handleSaveEdit = async (id) => {
     try {
       const updatedVideo = await updateReel(id, editForm, token);
@@ -96,7 +96,7 @@ const MyReels = () => {
               transition={{ delay: Math.min(index * 0.05, 0.5) }}
               className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden flex flex-col hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all"
             >
-              {/* Video Thumbnail */}
+             
               <div className="relative w-full h-56 bg-black">
                 <video 
                   src={reel.videoUrl} 
@@ -105,11 +105,11 @@ const MyReels = () => {
                 />
               </div>
 
-              {/* Card Body */}
+           
               <div className="p-5 flex-1 flex flex-col">
                 <h4 className="text-xl font-extrabold text-white mb-1 truncate">{reel.dishName}</h4>
                 
-                {/* EDIT MODE */}
+                
                 {editingId === reel._id ? (
                   <motion.div 
                     initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -149,7 +149,7 @@ const MyReels = () => {
                     </div>
                   </motion.div>
                 ) : (
-                  /* VIEW MODE */
+                  
                   <div className="flex flex-col flex-1">
                     <p className="text-orange-400 font-black text-lg mb-1">₹{reel.price}</p>
                     <p className="text-gray-400 text-sm mb-5 line-clamp-2 leading-relaxed">{reel.title}</p>

@@ -2,14 +2,14 @@ import { useState } from "react";
 import TextField from "@mui/material/TextField";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 
-// 🎨 Custom MUI Styles for Dark Theme (Same as Login/Signup!)
+
 const darkInputStyles = {
   input: { color: 'white' },
-  label: { color: '#9ca3af' }, // gray-400
+  label: { color: '#9ca3af' }, 
   '& .MuiOutlinedInput-root': {
     '& fieldset': { borderColor: 'rgba(255,255,255,0.1)' },
     '&:hover fieldset': { borderColor: 'rgba(255,255,255,0.3)' },
-    '&.Mui-focused fieldset': { borderColor: '#f97316' }, // orange-500
+    '&.Mui-focused fieldset': { borderColor: '#f97316' }, 
   },
   '& .MuiInputLabel-root.Mui-focused': { color: '#f97316' },
 };
@@ -89,7 +89,7 @@ const UploadReelForm = () => {
     <div className="w-full">
       <form onSubmit={handleUpload} className="flex flex-col gap-6">
         
-        {/* Dark Theme Drag & Drop Zone */}
+        
         <div className="border-2 border-dashed border-white/20 rounded-3xl p-8 text-center hover:bg-white/5 hover:border-orange-500/50 transition-all duration-300 group cursor-pointer relative overflow-hidden">
           <input
             type="file"
@@ -118,7 +118,7 @@ const UploadReelForm = () => {
           )}
         </div>
 
-        {/* Form Fields */}
+        
         <TextField
           label="Catchy Description"
           value={description}
@@ -169,7 +169,7 @@ const UploadReelForm = () => {
           sx={darkInputStyles}
         />
 
-        {/* Glowing Gradient Button */}
+        
         <button
           type="submit"
           disabled={isUploading}

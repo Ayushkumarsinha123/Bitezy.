@@ -21,7 +21,7 @@ const OrderCard = React.memo(({ order, index, getStatusColor, handleStatusChange
     <motion.div 
       initial={{ opacity: 0, scale: 0.95 }} 
       animate={{ opacity: 1, scale: 1 }} 
-      transition={{ delay: animationDelay }} // Using our newly optimized delay
+      transition={{ delay: animationDelay }} 
       className="bg-white/5 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all flex flex-col"
     >
       <div className="bg-white/5 p-5 border-b border-white/10 flex justify-between items-center">
@@ -101,7 +101,7 @@ const Dashboard = () => {
       }
     };
 
-    // 👇 2. Only fetch if we have a token AND we haven't fetched yet!
+    
     if (token && !hasFetched.current) {
       hasFetched.current = true; // Lock the shield immediately!
       loadOrders();

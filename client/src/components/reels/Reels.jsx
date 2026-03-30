@@ -14,12 +14,12 @@ const Reel = ({ _id, videoUrl, dishName, restaurantName, price }) => {
     const options = {
       root: null,
       rootMargin: "0px",
-      threshold: 0.8, // Video must be 80% visible to trigger
+      threshold: 0.8, 
     };
 
     const handlePlay = (entries) => {
       entries.forEach((entry) => {
-        // 👇 Safety check to prevent React crashes!
+        
         if (!videoRef.current) return;
 
         if (entry.isIntersecting) {
@@ -61,15 +61,12 @@ const Reel = ({ _id, videoUrl, dishName, restaurantName, price }) => {
       price,
       restaurantName
     });
-    // Optional: You could replace this alert with a cool toast notification later!
     alert(`Added ${dishName} to your cart! 🛒`);
   };
 
   return (
-    // 👇 Notice the change to h-full here so it fits perfectly inside the phone!
     <div className="relative w-full h-full snap-start bg-neutral-900 flex justify-center overflow-hidden shrink-0">
       
-      {/* Video Player */}
       <video
         ref={videoRef}
         onClick={togglePlay}

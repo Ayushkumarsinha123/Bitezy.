@@ -19,9 +19,15 @@ mongoose.connect(MONGO_URL).then(() => {
 
 // cors connection 
 
+const allowedOrigins = [
+  "http://localhost:5173",                 // For your local development
+  "https://bitezy-client.vercel.app",      // Your Vercel link
+  "https://bitezy.indevs.in"               // Your custom domain!
+];
+
 app.use(cors({
-  origin : "http://localhost:5173",
-  credentials : true
+  origin: allowedOrigins,
+  credentials: true 
 }));
 // middlewares
 app.use(express.json())

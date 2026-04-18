@@ -58,6 +58,6 @@ app.use('/api/users', userRouter);
 app.use('/api/reels', reelRoutes);
 app.use('/api/shop', shopRoutes);
 
-app.listen(Port,()=> {
+app.listen(Port,'0.0.0.0',()=> {
 console.log(`server running on : ${Port}`);
 })

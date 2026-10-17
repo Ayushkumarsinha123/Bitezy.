@@ -76,6 +76,7 @@ const Feed = () => {
               videoUrl={reel.videoUrl}
               dishName={reel.dishName}
               price={reel.price}
+              like={reel.like}
               restaurantName={reel.restaurant?.name || "Unknown Chef"}
             />
           ))}

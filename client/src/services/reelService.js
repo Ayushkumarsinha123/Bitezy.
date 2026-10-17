@@ -38,3 +38,17 @@ export const fetchSearchResults = async (searchTerm) => {
   const response = await API.get(`/reels/search?query=${searchTerm}`);
   return response.data;
 };
+
+//like and unlike reel
+export const likeReel = async (id, token) => {
+  const response = await API.post(
+    `/reels/${id}/like`,
+    {},
+    {
+      headers : {
+        Authorization : `Bearer ${token}`
+      }
+    }
+  );
+  return response.data
+}

@@ -27,7 +27,15 @@ const reelSchema = new mongoose.Schema(
     like: {
       type : Number,
       default : 0
-    }
+    },
+    
+     likedBy: {
+  type: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  }],
+  default: [],
+},  
   },
   {timestamps : true}
 ) 

@@ -145,3 +145,64 @@ export const searchReels = async (req, res) =>{
     res.status(500).json({ message: "Search failed", error: error.message });
   }
 }
+
+// like / unlike a reel 
+
+export const toggleLike = async (req, res) => {
+  try {
+    const reel = await Reel.findById(req.params.id);
+
+    if (!reel) {
+      return res.status(404).json({
+        success: false,
+        message: "Reel not found",
+      });
+    }
+
+    const userId = req.user?.id || req.user?._id;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: "User not authenticated",
+      });
+    }
+
+    // Initialize the array for older reels.
+    if (!Array.isArray(reel.likedBy)) {
+      reel.likedBy = [];
+    }
+
+    const alreadyLiked = reel.likedBy.some(
+      (id) => id.toString() === userId.toString()
+    );
+
+    if (alreadyLiked) {
+      // Unlike the reel.
+      reel.likedBy = reel.likedBy.filter(
+        (id) => id.toString() !== userId.toString()
+      );
+    } else {
+      // Like the reel.
+      reel.likedBy.push(userId);
+    }
+
+    reel.like = reel.likedBy.length;
+
+    await reel.save();
+
+    return res.status(200).json({
+      success: true,
+      liked: !alreadyLiked,
+      likes: reel.like,
+    });
+  } catch (error) {
+    console.error("TOGGLE LIKE ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to toggle like",
+      error: error.message,
+    });
+  }
+};
